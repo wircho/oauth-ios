@@ -66,7 +66,13 @@
             [_request setValue:[[_request_conf objectForKey:@"parameters"] valueForKey:key] forKey:key];
     }
     _credentials = [dict objectForKey:@"data"];
-    [_credentials setValue:[dict objectForKey:@"provider"] forKeyPath:@"provider"];
+    
+    NSMutableDictionary *mutableCredentials = _credentials.mutableCopy;
+    
+    [mutableCredentials setObject:[dict objectForKey:@"provider"] forKey:@"provider"];
+    
+    _credentials = mutableCredentials.copy;
+    
     return (self);
 }
 
